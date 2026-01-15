@@ -223,21 +223,26 @@ header h1 {
 }
 
 .turtle-opt {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
     cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.2s;
+    border: 3px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: transparent;
+    padding: 2px;
+    object-fit: contain;
 }
 
 .turtle-opt:hover {
-    transform: scale(1.2);
+    transform: translateY(-3px) scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
 }
 
 .turtle-opt.active {
-    border-color: var(--primary-color);
-    background-color: rgba(255, 107, 107, 0.1);
+    border-color: var(--secondary-color);
+    background-color: rgba(78, 205, 196, 0.15);
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
 }
 
 .header-controls {
