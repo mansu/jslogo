@@ -30,7 +30,6 @@
             <div class="card editor-container">
                 <div id="editor-highlight"></div>
                 <textarea id="logo-editor" spellcheck="false" placeholder="Type your Logo code here..."></textarea>
-                <div id="error-console" class="error-console hidden"></div>
             </div>
 
             <div class="controls">
@@ -89,6 +88,24 @@
                 </div>
             </div>
         </div>
+
+        <!-- Save Modal -->
+        <div id="save-modal" class="modal">
+            <div class="modal-content modal-content-small">
+                <span class="close-modal" id="close-save-modal">&times;</span>
+                <div class="modal-header">
+                    <h2>💾 Name Your Project</h2>
+                </div>
+                <div class="modal-body">
+                    <p>What should we call your masterpiece?</p>
+                    <input type="text" id="project-name-input" placeholder="My Masterpiece" class="modal-input">
+                    <div class="modal-actions">
+                        <button id="confirm-save-btn" class="btn btn-run">Save My Work!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <section class="right-panel">
             <div class="canvas-header">

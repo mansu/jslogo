@@ -12,7 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const helpModal = document.getElementById('help-modal');
     const closeModal = document.querySelector('.close-modal');
     const sampleCards = document.querySelectorAll('.sample-card');
-    const errorConsole = document.getElementById('error-console');
+    const saveModal = document.getElementById('save-modal');
+    const closeSaveModal = document.getElementById('close-save-modal');
+    const projectNameInput = document.getElementById('project-name-input');
+    const confirmSaveBtn = document.getElementById('confirm-save-btn');
 
     // Set canvas size
     function resizeCanvas() {
@@ -37,11 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         helpModal.style.display = 'none';
     });
 
-    window.addEventListener('click', (event) => {
-        if (event.target === helpModal) {
-            helpModal.style.display = 'none';
-        }
-    });
 
     // Sample Cards Logic
     sampleCards.forEach(card => {
@@ -61,15 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Auto-run
             statusDisplay.textContent = `Inspiring ${card.querySelector('h4').textContent} is starting!`;
             runBtn.disabled = true;
-            errorConsole.classList.add('hidden');
             try {
                 await interpreter.run(code);
                 statusDisplay.textContent = `${card.querySelector('h4').textContent} finished!`;
             } catch (err) {
                 console.error(err);
-                statusDisplay.textContent = '❌ Error found!';
-                errorConsole.textContent = err.message;
-                errorConsole.classList.remove('hidden');
+                statusDisplay.textContent = 'Oops! Try again.';
             } finally {
                 runBtn.disabled = false;
             }
@@ -109,42 +104,58 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = editor.value;
         statusDisplay.textContent = 'Turtle is running...';
         runBtn.disabled = true;
-        errorConsole.classList.add('hidden');
 
         try {
             await interpreter.run(code);
             statusDisplay.textContent = 'Turtle is finished!';
         } catch (err) {
             console.error(err);
-            statusDisplay.textContent = '❌ Error found!';
-            errorConsole.textContent = err.message;
-            errorConsole.classList.remove('hidden');
+            statusDisplay.textContent = 'Oops! Something went wrong.';
         } finally {
             runBtn.disabled = false;
         }
     });
 
-    // Clear error on input
-    editor.addEventListener('input', () => {
-        errorConsole.classList.add('hidden');
+    saveBtn.addEventListener('click', () => {
+        saveModal.style.display = 'block';
+        projectNameInput.focus();
     });
 
-    saveBtn.addEventListener('click', () => {
-        const name = prompt('What shall we call this project?', 'My Masterpiece');
-        if (name) {
-            const saved = JSON.parse(localStorage.getItem('logo_projects') || '{}');
-            saved[name] = editor.value;
-            localStorage.setItem('logo_projects', JSON.stringify(saved));
-            loadSavedPrograms();
-            programSelect.value = name;
-            statusDisplay.textContent = `Saved "${name}"!`;
+    closeSaveModal.addEventListener('click', () => {
+        saveModal.style.display = 'none';
+    });
+
+    confirmSaveBtn.addEventListener('click', () => {
+        const name = projectNameInput.value.trim() || 'My Masterpiece';
+        const saved = JSON.parse(localStorage.getItem('logo_projects') || '{}');
+        saved[name] = editor.value;
+        localStorage.setItem('logo_projects', JSON.stringify(saved));
+        loadSavedPrograms();
+        programSelect.value = name;
+        statusDisplay.textContent = `Saved "${name}"!`;
+        saveModal.style.display = 'none';
+        projectNameInput.value = '';
+    });
+
+    projectNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            confirmSaveBtn.click();
+        }
+    });
+
+    // Handle clicks outside modals
+    window.addEventListener('click', (event) => {
+        if (event.target === helpModal) {
+            helpModal.style.display = 'none';
+        }
+        if (event.target === saveModal) {
+            saveModal.style.display = 'none';
         }
     });
 
     resetBtn.addEventListener('click', () => {
         turtle.reset();
         statusDisplay.textContent = 'Canvas cleared!';
-        errorConsole.classList.add('hidden');
     });
 
     programSelect.addEventListener('change', () => {
