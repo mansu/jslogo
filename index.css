@@ -1,0 +1,294 @@
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-color: #ffe66d;
+    --bg-color: #f7fff7;
+    --text-color: #2f2f2f;
+    --card-bg: #ffffff;
+    --editor-bg: #2d3436;
+    --editor-text: #dfe6e9;
+    --font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.main-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 400px;
+}
+
+.right-panel {
+    flex: 1.5;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Editor Styles */
+.editor-container {
+    position: relative;
+    flex: 1;
+    min-height: 300px;
+    background-color: var(--editor-bg);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#logo-editor {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: var(--editor-text);
+    border: none;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    resize: none;
+    outline: none;
+    white-space: pre;
+    tab-size: 4;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+#editor-highlight {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--editor-text);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-run {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-save {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+
+.btn-reset {
+    background-color: #dfe6e9;
+    color: var(--text-color);
+}
+
+/* Canvas */
+#turtle-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#turtle-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-container {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.canvas-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.turtle-customizer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.turtle-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.turtle-opt {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+
+.turtle-opt:hover {
+    transform: scale(1.2);
+}
+
+.turtle-opt.active {
+    border-color: var(--primary-color);
+    background-color: rgba(255, 107, 107, 0.1);
+}
+
+/* Help Section */
+.help-section {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.help-section h3 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.command-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.5rem;
+}
+
+.command-item {
+    background: #f8f9fa;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    border: 1px solid #e9ecef;
+}
+
+.command-item code {
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* Saved Programs */
+.saved-programs-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+select {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: var(--font-family);
+}
+
+/* Syntax Highlighting */
+.hl-kw {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+.hl-num {
+    color: #4ecdc4;
+}
+
+.hl-bracket {
+    color: #ffe66d;
+    font-weight: bold;
+}
+
+.hl-var {
+    color: #ff9f43;
+}
+
+/* Status */
+#status-display {
+    font-weight: bold;
+    color: var(--secondary-color);
+}

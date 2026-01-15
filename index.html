@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Logo - Learn to Code!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <h1>Logo Adventures 🐢</h1>
+        <div class="saved-programs-container">
+            <label for="program-select">My Projects:</label>
+            <select id="program-select">
+                <option value="default">New Project</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="left-panel">
+            <div class="card help-section" id="help-card">
+                <h3>📜 Quick Commands</h3>
+                <div class="command-grid">
+                    <div class="command-item"><code>FD 100</code> Forward</div>
+                    <div class="command-item"><code>BK 50</code> Back</div>
+                    <div class="command-item"><code>RT 90</code> Right</div>
+                    <div class="command-item"><code>LT 45</code> Left</div>
+                    <div class="command-item"><code>REPEAT 4 [ ... ]</code> Loop</div>
+                    <div class="command-item"><code>DEF NAME ... END</code> Save!</div>
+                    <div class="command-item"><code>VAR X 10</code> Secret!</div>
+                    <div class="command-item"><code>PU/PD</code> Pen Up/Dn</div>
+                </div>
+            </div>
+
+            <div class="card editor-container">
+                <div id="editor-highlight"></div>
+                <textarea id="logo-editor" spellcheck="false" placeholder="Type your Logo code here..."></textarea>
+            </div>
+
+            <div class="controls">
+                <button id="run-btn" class="btn btn-run">🚀 Run Code</button>
+                <button id="save-btn" class="btn btn-save">💾 Save Project</button>
+                <button id="reset-btn" class="btn btn-reset">🧹 Clear Canvas</button>
+            </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="canvas-header">
+                <h3>🎨 Artistic Space</h3>
+                <div class="turtle-customizer">
+                    <label>Turtle Style:</label>
+                    <div class="turtle-options">
+                        <img src="turtle_green.png" class="turtle-opt active" data-color="green" alt="Green">
+                        <img src="turtle_blue.png" class="turtle-opt" data-color="blue" alt="Blue">
+                        <img src="turtle_red.png" class="turtle-opt" data-color="red" alt="Red">
+                    </div>
+                </div>
+                <div id="status-display">Turtle is ready!</div>
+            </div>
+            <div class="canvas-container">
+                <canvas id="turtle-canvas"></canvas>
+                <canvas id="turtle-overlay"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts will be added here -->
+    <script src="turtle.js"></script>
+    <script src="interpreter.js"></script>
+    <script src="editor.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
