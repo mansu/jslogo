@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const programSelect = document.getElementById('program-select');
     const statusDisplay = document.getElementById('status-display');
     const turtleOpts = document.querySelectorAll('.turtle-opt');
+    const helpBtn = document.getElementById('help-btn');
+    const helpModal = document.getElementById('help-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const sampleCards = document.querySelectorAll('.sample-card');
 
     // Set canvas size
     function resizeCanvas() {
@@ -22,6 +26,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const turtle = new Turtle(canvas, overlayCanvas);
     const interpreter = new Interpreter(turtle);
+
+    // Help Modal Logic
+    helpBtn.addEventListener('click', () => {
+        helpModal.style.display = 'block';
+    });
+
+    closeModal.addEventListener('click', () => {
+        helpModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === helpModal) {
+            helpModal.style.display = 'none';
+        }
+    });
+
+    // Sample Cards Logic
+    sampleCards.forEach(card => {
+        card.addEventListener('click', async () => {
+            const code = card.getAttribute('data-code').replace(/\\n/g, '\n');
+
+            // 1. Close modal
+            helpModal.style.display = 'none';
+
+            // 2. Clear canvas and reset turtle
+            turtle.reset();
+
+            // 3. Update editor
+            editor.value = code;
+            editor.dispatchEvent(new Event('input')); // Update highlighting
+
+            // 4. Auto-run
+            statusDisplay.textContent = `Inspiring ${card.querySelector('h4').textContent} is starting!`;
+            runBtn.disabled = true;
+            try {
+                await interpreter.run(code);
+                statusDisplay.textContent = `${card.querySelector('h4').textContent} finished!`;
+            } catch (err) {
+                console.error(err);
+                statusDisplay.textContent = 'Oops! Try again.';
+            } finally {
+                runBtn.disabled = false;
+            }
+        });
+    });
+
+    // Sprite Selection
 
     // Sprite Selection
     turtleOpts.forEach(opt => {

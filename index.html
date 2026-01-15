@@ -14,30 +14,19 @@
 <body>
     <header>
         <h1>Logo Adventures 🐢</h1>
-        <div class="saved-programs-container">
-            <label for="program-select">My Projects:</label>
-            <select id="program-select">
-                <option value="default">New Project</option>
-            </select>
+        <div class="header-controls">
+            <button id="help-btn" class="btn btn-help">❓ Help & Samples</button>
+            <div class="saved-programs-container">
+                <label for="program-select">My Projects:</label>
+                <select id="program-select">
+                    <option value="default">New Project</option>
+                </select>
+            </div>
         </div>
     </header>
 
     <main class="main-container">
         <section class="left-panel">
-            <div class="card help-section" id="help-card">
-                <h3>📜 Quick Commands</h3>
-                <div class="command-grid">
-                    <div class="command-item"><code>FD 100</code> Forward</div>
-                    <div class="command-item"><code>BK 50</code> Back</div>
-                    <div class="command-item"><code>RT 90</code> Right</div>
-                    <div class="command-item"><code>LT 45</code> Left</div>
-                    <div class="command-item"><code>REPEAT 4 [ ... ]</code> Loop</div>
-                    <div class="command-item"><code>DEF NAME ... END</code> Save!</div>
-                    <div class="command-item"><code>VAR X 10</code> Secret!</div>
-                    <div class="command-item"><code>PU/PD</code> Pen Up/Dn</div>
-                </div>
-            </div>
-
             <div class="card editor-container">
                 <div id="editor-highlight"></div>
                 <textarea id="logo-editor" spellcheck="false" placeholder="Type your Logo code here..."></textarea>
@@ -49,6 +38,56 @@
                 <button id="reset-btn" class="btn btn-reset">🧹 Clear Canvas</button>
             </div>
         </section>
+
+        <!-- Help Modal -->
+        <div id="help-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-header">
+                    <h2>🐢 Logo Learning Guide</h2>
+                </div>
+                <div class="modal-body">
+                    <section class="help-section">
+                        <h3>📜 Basic Commands</h3>
+                        <div class="command-grid">
+                            <div class="command-item"><code>FD 100</code> Forward</div>
+                            <div class="command-item"><code>BK 50</code> Back</div>
+                            <div class="command-item"><code>RT 90</code> Right</div>
+                            <div class="command-item"><code>LT 45</code> Left</div>
+                            <div class="command-item"><code>REPEAT 4 [ ... ]</code> Loop</div>
+                            <div class="command-item"><code>DEF NAME ... END</code> Save Function</div>
+                            <div class="command-item"><code>VAR X 10</code> Variables</div>
+                            <div class="command-item"><code>PU/PD</code> Pen Up/Dn</div>
+                            <div class="command-item"><code>CS</code> Clear Screen</div>
+                            <div class="command-item"><code>SETCOLOR red</code> Color</div>
+                        </div>
+                    </section>
+
+                    <section class="samples-section">
+                        <h3>✨ Inspiring Samples</h3>
+                        <div class="samples-grid">
+                            <div class="sample-card" data-code="REPEAT 4 [ FD 100 RT 90 ]">
+                                <h4>Square</h4>
+                                <p>A simple 4-sided box.</p>
+                            </div>
+                            <div class="sample-card" data-code="REPEAT 5 [ FD 100 RT 144 ]">
+                                <h4>Star</h4>
+                                <p>A shiny 5-pointed star.</p>
+                            </div>
+                            <div class="sample-card" data-code="REPEAT 36 [ REPEAT 4 [ FD 50 RT 90 ] RT 10 ]">
+                                <h4>Flower</h4>
+                                <p>Many squares make a flower!</p>
+                            </div>
+                            <div class="sample-card"
+                                data-code="DEF TRIANGLE REPEAT 3 [ FD 100 RT 120 ] END\nREPEAT 12 [ TRIANGLE RT 30 ]">
+                                <h4>Spinning Triangles</h4>
+                                <p>Using functions for art.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
 
         <section class="right-panel">
             <div class="canvas-header">
