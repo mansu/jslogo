@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const helpModal = document.getElementById('help-modal');
     const closeModal = document.querySelector('.close-modal');
     const sampleCards = document.querySelectorAll('.sample-card');
+    const errorConsole = document.getElementById('error-console');
 
     // Set canvas size
     function resizeCanvas() {
@@ -60,12 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // 4. Auto-run
             statusDisplay.textContent = `Inspiring ${card.querySelector('h4').textContent} is starting!`;
             runBtn.disabled = true;
+            errorConsole.classList.add('hidden');
             try {
                 await interpreter.run(code);
                 statusDisplay.textContent = `${card.querySelector('h4').textContent} finished!`;
             } catch (err) {
                 console.error(err);
-                statusDisplay.textContent = 'Oops! Try again.';
+                statusDisplay.textContent = '❌ Error found!';
+                errorConsole.textContent = err.message;
+                errorConsole.classList.remove('hidden');
             } finally {
                 runBtn.disabled = false;
             }
@@ -105,16 +109,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const code = editor.value;
         statusDisplay.textContent = 'Turtle is running...';
         runBtn.disabled = true;
+        errorConsole.classList.add('hidden');
 
         try {
             await interpreter.run(code);
             statusDisplay.textContent = 'Turtle is finished!';
         } catch (err) {
             console.error(err);
-            statusDisplay.textContent = 'Oops! Something went wrong.';
+            statusDisplay.textContent = '❌ Error found!';
+            errorConsole.textContent = err.message;
+            errorConsole.classList.remove('hidden');
         } finally {
             runBtn.disabled = false;
         }
+    });
+
+    // Clear error on input
+    editor.addEventListener('input', () => {
+        errorConsole.classList.add('hidden');
     });
 
     saveBtn.addEventListener('click', () => {
@@ -132,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resetBtn.addEventListener('click', () => {
         turtle.reset();
         statusDisplay.textContent = 'Canvas cleared!';
+        errorConsole.classList.add('hidden');
     });
 
     programSelect.addEventListener('change', () => {
