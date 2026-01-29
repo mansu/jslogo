@@ -1,5 +1,7 @@
 # 🐢 Logo Adventures: Coding for Kids!
 
+https://mansu.github.io/jslogo/
+
 A colorful, interactive, and educational Logo programming environment built with vanilla JavaScript. Perfect for kids to learn logic, geometry, and the joy of creating art through code.
 
 ![Hero Demo - Watch Logo in Action](assets/hero_demo.webp)
